@@ -3,7 +3,7 @@
 
 "path"      "~/some/useful/path"
 
-"meta" {
+meta {
     "ttl"       "5000"
     "filters"   ["0", "1"]
     "whitelist" []

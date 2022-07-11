@@ -25,13 +25,13 @@ module.exports = grammar({
             $ => commaSeparated1($, $.record_entry),
 
         record_entry:
-            $ => seq($.record_key, $.record_value),
+            $ => seq($.key, $.value),
 
-        record_key:
-            $ => $.str_quoted,
+        key:
+            $ => $._str_key,
 
-        record_value:
-            $ => choice($.str_quoted, $.record, $.list),
+        value:
+            $ => choice($._str_any, $.record, $.list),
 
         // Lists
         // A list is composed of the list delimiters '[' and ']' that surround
@@ -42,7 +42,7 @@ module.exports = grammar({
             $ => seq('[', optional(commaSeparated1($, $._list_element)), ']'),
 
         _list_element:
-            $ => choice($.str_quoted, $.record, $.list),
+            $ => choice($._str_any, $.record, $.list),
 
         // Comments
         comment:
@@ -60,8 +60,15 @@ module.exports = grammar({
         _separator:
             $ => choice(',', $._logical_linebreak),
 
-        // Lexical
-        str_quoted: $ => /"[^"]*"/
+        str_unquoted: $ => /[^\s;,"\[\]\{\}]+/,
+        str_quoted: $ => /"[^"]*"/,
+
+        // Strings that can appear as record keys
+        _str_key: $ => choice($.str_unquoted, $.str_quoted),
+
+        // Strings that can appear anywhere
+        // TODO: change when multiline strings are implemented
+        _str_any: $ => $._str_key,
     }
 });
 
