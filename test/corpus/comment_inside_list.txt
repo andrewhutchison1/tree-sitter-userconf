@@ -11,6 +11,6 @@ Comments are parsed correctly when inside lists
 
 (document
     (record_entry
-        (record_key (str_quoted))
-        (record_value
+        (key (str_quoted))
+        (value
             (list (comment) (str_quoted)))))

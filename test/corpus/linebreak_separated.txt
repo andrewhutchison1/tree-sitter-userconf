@@ -23,20 +23,20 @@ Linebreaks can act as separators in records and lists
 
 (document
     (record_entry
-        (record_key (str_quoted))
-        (record_value (str_quoted)))
+        (key (str_quoted))
+        (value (str_quoted)))
     (record_entry
-        (record_key (str_quoted))
-        (record_value (str_quoted)))
+        (key (str_quoted))
+        (value (str_quoted)))
     (record_entry
-        (record_key (str_quoted))
-        (record_value (str_quoted)))
+        (key (str_quoted))
+        (value (str_quoted)))
     (record_entry
-        (record_key (str_quoted))
-        (record_value
+        (key (str_quoted))
+        (value
             (record
-                (record_entry (record_key (str_quoted)) (record_value (str_quoted)))
-                (record_entry (record_key (str_quoted)) (record_value (str_quoted))))))
+                (record_entry (key (str_quoted)) (value (str_quoted)))
+                (record_entry (key (str_quoted)) (value (str_quoted))))))
     (record_entry
-        (record_key (str_quoted))
-        (record_value (list (str_quoted) (str_quoted) (str_quoted)))))
+        (key (str_quoted))
+        (value (list (str_quoted) (str_quoted) (str_quoted)))))

@@ -10,11 +10,11 @@ Document with quoted string keys and list values at top-level
 
 (document
     (record_entry
-        (record_key (str_quoted))
-        (record_value (list)))
+        (key (str_quoted))
+        (value (list)))
     (record_entry
-        (record_key (str_quoted))
-        (record_value (list (str_quoted))))
+        (key (str_quoted))
+        (value (list (str_quoted))))
     (record_entry
-        (record_key (str_quoted))
-        (record_value (list (list)))))
+        (key (str_quoted))
+        (value (list (list)))))

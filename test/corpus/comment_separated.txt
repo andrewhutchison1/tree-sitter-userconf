@@ -10,8 +10,8 @@ Comments can act as separators in records and lists
 
 (document
     (record_entry
-        (record_key (str_quoted)) (record_value (str_quoted)))
+        (key (str_quoted)) (value (str_quoted)))
     (comment)
     (comment)
     (record_entry
-        (record_key (str_quoted)) (record_value (str_quoted))))
+        (key (str_quoted)) (value (str_quoted))))

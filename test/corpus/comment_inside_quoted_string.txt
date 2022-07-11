@@ -8,6 +8,6 @@ Comments should not be scanned inside strings
 
 (document
     (record_entry
-        (record_key (str_quoted))
-        (record_value (str_quoted)))
+        (key (str_quoted))
+        (value (str_quoted)))
     (comment))
