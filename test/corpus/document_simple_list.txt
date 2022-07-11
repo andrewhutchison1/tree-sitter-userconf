@@ -1,0 +1,20 @@
+===
+Document with quoted string keys and list values at top-level
+===
+
+"list_empty"    [],
+"list_one"      ["s"],
+"nested_list"   [[]],
+
+---
+
+(document
+    (record_entry
+        (record_key (str_quoted))
+        (record_value (list)))
+    (record_entry
+        (record_key (str_quoted))
+        (record_value (list (str_quoted))))
+    (record_entry
+        (record_key (str_quoted))
+        (record_value (list (list)))))

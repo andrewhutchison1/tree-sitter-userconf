@@ -1,0 +1,20 @@
+; A typical userconf configuration file, containing top-level key value pairs as well as
+; (nested) lists and records.
+
+"path"      "~/some/useful/path"
+
+"meta" {
+    "ttl"       "5000"
+    "filters"   ["0", "1"]
+    "whitelist" []
+}
+
+"records"   [
+    {
+        "name"          "record1"
+        "description"   "The first record"
+    }
+
+    ; This record is always present
+    {"name" "null", "description" "The null record"}
+]

@@ -1,0 +1,19 @@
+===
+Testing comments are parsed correctly when inside records
+===
+
+"key" {
+    ; Not the value
+    "key" "value"
+}
+
+---
+
+(document
+    (record_entry
+        (record_key (str_quoted))
+        (record_value (record
+            (comment)
+            (record_entry
+                (record_key (str_quoted))
+                (record_value (str_quoted)))))))

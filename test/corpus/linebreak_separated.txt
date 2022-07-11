@@ -1,0 +1,42 @@
+===
+Linebreaks can act as separators in records and lists
+===
+
+"key"       "value"
+"key"       "value"
+
+"key"       "value"
+
+"record"    {
+    "key" "value"
+    "key" "value"
+}
+
+"list" [
+    "1"
+    "2"
+
+
+    "3"]
+
+---
+
+(document
+    (record_entry
+        (record_key (str_quoted))
+        (record_value (str_quoted)))
+    (record_entry
+        (record_key (str_quoted))
+        (record_value (str_quoted)))
+    (record_entry
+        (record_key (str_quoted))
+        (record_value (str_quoted)))
+    (record_entry
+        (record_key (str_quoted))
+        (record_value
+            (record
+                (record_entry (record_key (str_quoted)) (record_value (str_quoted)))
+                (record_entry (record_key (str_quoted)) (record_value (str_quoted))))))
+    (record_entry
+        (record_key (str_quoted))
+        (record_value (list (str_quoted) (str_quoted) (str_quoted)))))

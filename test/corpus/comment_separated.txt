@@ -1,0 +1,17 @@
+===
+Comments can act as separators in records and lists
+===
+
+"key" "value" ;C1
+;C2
+"key" "value"
+
+---
+
+(document
+    (record_entry
+        (record_key (str_quoted)) (record_value (str_quoted)))
+    (comment)
+    (comment)
+    (record_entry
+        (record_key (str_quoted)) (record_value (str_quoted))))
