@@ -22,7 +22,7 @@ module.exports = grammar({
             $ => seq('{', optional($._record_body), '}'),
 
         _record_body:
-            $ => commaSeparated1($, $.record_entry),
+            $ => separated1($, $.record_entry),
 
         record_entry:
             $ => seq($.key, $.value),
@@ -39,7 +39,7 @@ module.exports = grammar({
         // can appear at the end.
         
         list:
-            $ => seq('[', optional(commaSeparated1($, $._list_element)), ']'),
+            $ => seq('[', optional(separated1($, $._list_element)), ']'),
 
         _list_element:
             $ => choice($._str_any, $.record, $.list),
@@ -57,8 +57,7 @@ module.exports = grammar({
             $ => choice($.comment, $._linebreak),
 
         // Item separator
-        _separator:
-            $ => choice(',', $._logical_linebreak),
+        _separator: $ => choice(',', $._logical_linebreak),
 
         str_unquoted: $ => /[^\s;,"\[\]\{\}]+/,
         str_quoted: $ => /"[^"]*"/,
@@ -72,6 +71,6 @@ module.exports = grammar({
     }
 });
 
-function commaSeparated1($, prod) {
+function separated1($, prod) {
     return seq(prod, repeat(seq($._separator, prod)), optional($._separator));
 }
