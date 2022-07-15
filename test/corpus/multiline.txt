@@ -1,0 +1,31 @@
+===
+Single-line multiline string value on same line as key is parsed properly
+===
+
+key >>Multiline
+
+---
+
+(document (record_entry (key (str_unquoted)) (value (str_multi))))
+
+===
+Single-line multiline string following a newline is parsed properly
+===
+
+key
+    >>Multiline
+
+---
+
+(document (record_entry (key (str_unquoted)) (value (str_multi))))
+
+===
+Multi-line multiline string following a newline is parsed properly
+===
+
+key
+    >>Multiline
+    >>string
+---
+
+(document (record_entry (key (str_unquoted)) (value (str_multi))))
