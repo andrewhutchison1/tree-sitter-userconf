@@ -1,9 +1,0 @@
-===
-Basic comment test
-===
-
-; Empty document with a comment
-
----
-
-(document (comment))
