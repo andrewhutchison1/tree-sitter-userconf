@@ -24,7 +24,6 @@ module.exports = grammar({
         record_entry: $ =>
             seq(
                 field('key', choice($.quoted_string, $.unquoted_string)),
-//                ':',
                 field('value', $._value)
             ),
 
