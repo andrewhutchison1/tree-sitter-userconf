@@ -1,5 +1,5 @@
 module.exports = grammar({
-    name: 'Userconf',
+    name: 'userconf',
 
     extras: $ => [
         /\s/,
