@@ -1,85 +1,83 @@
 ===
-Single-line multiline string value on same line as key is parsed properly
+ml.inline | Multiline string can start on same line as record key
 ===
-
-key >>Multiline
-
+key: >>Multiline
 ---
-
-(document (record_entry (key (str_unquoted)) (value (str_multiline))))
+(document (record_entry key: (unquoted_string) value: (multiline_string)))
 
 ===
-Single-line multiline string following a newline is parsed properly
+ml.newline | Single-line multiline string following a newline is parsed properly
 ===
 
-key
+key:
     >>Multiline
-
 ---
-
-(document (record_entry (key (str_unquoted)) (value (str_multiline))))
+(document (record_entry key: (unquoted_string) value: (multiline_string)))
 
 ===
-Multi-line multiline string following a newline is parsed properly
+ml.multi | Multiline multiline string following a newline parses
 ===
-
-key
+key:
     >>Multiline
     >>string
-
 ---
-
-(document (record_entry (key (str_unquoted)) (value (str_multiline))))
+(document (record_entry key: (unquoted_string) value: (multiline_string)))
 
 ===
-Empty multiline string is parsed properly
+ml.empty | Empty multiline string is parsed properly
 ===
-
-key >>
-
+key: >>
 ---
-(document (record_entry (key (str_unquoted)) (value (str_multiline))))
+(document (record_entry key: (unquoted_string) value: (multiline_string)))
 
 ===
-Multi-line empty multiline string is parsed properly
+ml.empty_multi | Multi-line empty multiline string is parsed properly
 ===
-
-key >>
-    >>;
-
+key: >>
+     >>
 ---
-(document (record_entry (key (str_unquoted)) (value (str_multiline))))
+(document (record_entry key: (unquoted_string) value: (multiline_string)))
 
 ===
-Multi-line strings parsed properly inside list (newline separated)
+ml.in_list | Multiline strings in list can be newline-separated
 ===
-
-list [
+list: [
     >>hello
 
     >>goodbye
 ]
-
 ---
-
 (document
     (record_entry
-        (key (str_unquoted))
-        (value (list (str_multiline) (str_multiline)))))
+        key: (unquoted_string)
+        value: (list (multiline_string) (multiline_string))))
 
 ===
-Multiple multiline string keys are parsed correctly
+ml.many | Multiple multiline string keys are parsed correctly
 ===
-key1    >>multiline
+key1:   >>multiline
         >> string
 
-key2    >>multiline
+key2:   >>multiline
         >> string
 ---
 (document
     (record_entry
-        (key (str_unquoted))
-        (value (str_multiline)))
+        key:    (unquoted_string)
+        value:  (multiline_string))
     (record_entry
-        (key (str_unquoted))
-        (value (str_multiline))))
+        key:    (unquoted_string)
+        value:  (multiline_string)))
+
+===
+ml.cmt | Comments are not scanned inside multiline strings
+===
+key:    >>Multiline
+        >>string ;not a comment
+        >>; not a comment
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (multiline_string)))
+

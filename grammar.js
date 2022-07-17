@@ -12,6 +12,9 @@ module.exports = grammar({
         _separator:
             $ => choice(',', $.comment, /\r?\n/),
 
+        _value: $ =>
+            choice($.unquoted_string, $.quoted_string, $.multiline_string, $.record, $.list),
+
         record: $ =>
             seq('{', optional($._record_body), '}'),
 
@@ -22,17 +25,14 @@ module.exports = grammar({
             seq(
                 field('key', choice($.quoted_string, $.unquoted_string)),
                 ':',
-                field('value', choice($.unquoted_string, $.quoted_string, $.record, $.list))
+                field('value', $._value)
             ),
 
         list: $ =>
             seq('[', optional($._list_body), ']'),
 
         _list_body: $ =>
-            separated1(
-                choice($.unquoted_string, $.quoted_string, $.record, $.list),
-                $._separator
-            ),
+            separated1($._value, $._separator),
 
         unquoted_string: $ =>
             token(/[^\s\[\]\{\}":;,>]+/),
@@ -48,6 +48,21 @@ module.exports = grammar({
                 ),
                 '"'
             )),
+
+        _multiline_line: $ =>
+            token(seq(
+                '>>',
+                repeat(
+                    choice(
+                        /[^\r\n\\]/,
+                        /\\("|\\|0|[a-z]|(x[0-9a-fA-F]{2})|(u[0-9a-fA-F]{6}))/
+                    )
+                ),
+                optional(/\r?\n/)
+            )),
+
+        multiline_string: $ =>
+            repeat1($._multiline_line),
 
         comment:
             $ => token(seq(';', /.*/)),
