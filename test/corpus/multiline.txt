@@ -85,10 +85,11 @@ list [
         value:  (list (multiline_string) (multiline_string))))
 
 ===
-ml.ml_sigil | `>>' is not scanned inside a multiline string
+ml.sigil | `>>' is not scanned inside a multiline string
 ===
 key >>hello>>there
-     >>
+    >>>>
+    >>
 ---
 (document (record_entry key: (unquoted_string) value: (multiline_string)))
 
@@ -115,9 +116,24 @@ ml.cmt | Comments are not scanned inside multiline strings
 key    >>Multiline
         >>string ;not a comment
         >>; not a comment
+        >>;
 ---
 (document
     (record_entry
         key:    (unquoted_string)
         value:  (multiline_string)))
 
+===
+ml.in_rec.imm_key | A multiline string should end where a record key-value would be parsed
+===
+multiline >>This is a multiline
+          >> string lalalal
+string    "this is a string key, terminating the above multiline string"
+---
+(document
+    (record_entry
+        key:    (unquoted_string) 
+        value:  (multiline_string))
+    (record_entry
+        key:    (unquoted_string)
+        value:  (quoted_string)))
