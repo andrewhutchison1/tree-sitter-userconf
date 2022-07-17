@@ -1,10 +1,10 @@
 ===
 lb.can_sep_kv | Linebreaks can separate the key and value in a record
 ===
-key:
+key
     value
 
-key: ; comment
+key ; comment
     value
 ---
 (document
@@ -19,17 +19,17 @@ key: ; comment
 ===
 lb.can_sep | Linebreaks can act as separators in records and lists
 ===
-"key":       "value"
-"key":       "value"
+"key"       "value"
+"key"       "value"
 
-"key":       "value"
+"key"       "value"
 
-"record":    {
-    "key": "value"
-    "key": "value"
+"record"    {
+    "key" "value"
+    "key" "value"
 }
 
-"list": [
+"list" [
     "1"
     "2"
 

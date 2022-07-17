@@ -9,4 +9,4 @@
 
 ; Punctuation and delimiters
 ["{" "}" "[" "]"] @punctuation.bracket
-[":" ","] @punctuation.delimiter
+[","] @punctuation.delimiter

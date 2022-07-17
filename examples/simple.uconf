@@ -1,7 +1,7 @@
 ; Simple uconf document file: just some keys, values and comments
 
 ; A key-value pair
-"key":       "value"
+"key"       "value"
 
 ; Another one
-"key":       "value"
+"key"       "value"

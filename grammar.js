@@ -24,7 +24,7 @@ module.exports = grammar({
         record_entry: $ =>
             seq(
                 field('key', choice($.quoted_string, $.unquoted_string)),
-                ':',
+//                ':',
                 field('value', $._value)
             ),
 
@@ -35,7 +35,7 @@ module.exports = grammar({
             separated1($._value, $._separator),
 
         unquoted_string: $ =>
-            token(/[^\s\[\]\{\}":;,>]+/),
+            token(/[^\s\[\]\{\}";,>]+/),
 
         quoted_string: $ =>
             token(seq(

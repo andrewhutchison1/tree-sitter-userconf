@@ -1,25 +1,25 @@
 ; A typical userconf configuration file, containing top-level key value pairs as well as
 ; (nested) lists and records.
 
-"path":      "~/some/useful/path"
+"path"      "~/some/useful/path"
 
-meta: {
-    "ttl":       "5000"
-    "filters":   ["0", "1"]
-    "whitelist": []
+meta {
+    "ttl"       "5000"
+    "filters"   ["0", "1"]
+    "whitelist" []
 }
 
-"records":   [
+"records"   [
     {
-        "name":          "record1"
-        "description":   "The first record"
+        "name"          "record1"
+        "description"   "The first record"
     }
 
     ; This record is always present
-    {"name": "null", "description": "The null record"}
+    {"name" "null", "description" "The null record"}
 ]
 
-message:    >>This is a multiline\n
+message    >>This is a multiline\n
             >>string.
             >>\n
             >>Hello

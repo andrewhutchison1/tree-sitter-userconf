@@ -16,9 +16,9 @@ cmt.many | Consecutive line comments correctly parse as multiple comments
 ===
 cmt.can_sep | Comments can act as separators in records and lists
 ===
-"key": "value" ;C1
+"key" "value" ;C1
 ;C2
-"key": "value"
+"key" "value"
 ---
 (document
     (record_entry
@@ -33,7 +33,7 @@ cmt.can_sep | Comments can act as separators in records and lists
 ===
 cmt.in_qstr | Comments are not scanned inside quoted strings
 ===
-";not a comment": ";"     ; a comment
+";not a comment" ";"     ; a comment
 ---
 (document
     (record_entry
@@ -44,9 +44,9 @@ cmt.in_qstr | Comments are not scanned inside quoted strings
 ===
 cmt.in_rec | Comments are parsed correctly inside records
 ===
-"key": {
+"key" {
     ; Not the value
-    "key": "value"
+    "key" "value"
 }
 ---
 (document
@@ -61,7 +61,7 @@ cmt.in_rec | Comments are parsed correctly inside records
 ===
 cmt.in_list | Comments are parsed correctly inside lists
 ===
-"key": [
+"key" [
     ; Not the first element
     "first_element"
 ]

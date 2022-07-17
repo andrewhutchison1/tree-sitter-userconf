@@ -1,7 +1,7 @@
 ===
 ml.inline | Multiline string can start on same line as record key
 ===
-key: >>Multiline
+key >>Multiline
 ---
 (document (record_entry key: (unquoted_string) value: (multiline_string)))
 
@@ -9,7 +9,7 @@ key: >>Multiline
 ml.newline | Single-line multiline string following a newline is parsed properly
 ===
 
-key:
+key
     >>Multiline
 ---
 (document (record_entry key: (unquoted_string) value: (multiline_string)))
@@ -17,7 +17,7 @@ key:
 ===
 ml.multi | Multiline multiline string following a newline parses
 ===
-key:
+key
     >>Multiline
     >>string
 ---
@@ -26,14 +26,14 @@ key:
 ===
 ml.empty | Empty multiline string is parsed properly
 ===
-key: >>
+key >>
 ---
 (document (record_entry key: (unquoted_string) value: (multiline_string)))
 
 ===
 ml.empty_multi | Multi-line empty multiline string is parsed properly
 ===
-key: >>
+key >>
      >>
 ---
 (document (record_entry key: (unquoted_string) value: (multiline_string)))
@@ -41,7 +41,7 @@ key: >>
 ===
 ml.in_list | Multiline strings in list can be newline-separated
 ===
-list: [
+list [
     >>hello
 
     >>goodbye
@@ -55,7 +55,7 @@ list: [
 ===
 ml.in_list.cmt | Multiline strings in list can be comment-separated
 ===
-list: [
+list [
     >>first list element
     ;separating comment
     >>last list element
@@ -69,7 +69,7 @@ list: [
 ===
 ml.in_list.comma | Multiline strings in list can be comma-separated
 ===
-list: [
+list [
     >>first
     >>list
     >>element
@@ -87,7 +87,7 @@ list: [
 ===
 ml.ml_sigil | `>>' is not scanned inside a multiline string
 ===
-key: >>hello>>there
+key >>hello>>there
      >>
 ---
 (document (record_entry key: (unquoted_string) value: (multiline_string)))
@@ -95,10 +95,10 @@ key: >>hello>>there
 ===
 ml.many | Multiple multiline string keys are parsed correctly
 ===
-key1:   >>multiline
+key1   >>multiline
         >> string
 
-key2:   >>multiline
+key2   >>multiline
         >> string
 ---
 (document
@@ -112,7 +112,7 @@ key2:   >>multiline
 ===
 ml.cmt | Comments are not scanned inside multiline strings
 ===
-key:    >>Multiline
+key    >>Multiline
         >>string ;not a comment
         >>; not a comment
 ---

@@ -7,7 +7,7 @@ doc.empty | Empty document parses correctly
 ===
 doc.top1 | Document with top-level quoted string values parses correctly
 ===
-"key": "value"
+"key" "value"
 ---
 (document
     (record_entry
@@ -17,9 +17,9 @@ doc.top1 | Document with top-level quoted string values parses correctly
 ===
 doc.top2 | Document with top-level list values parses correctly
 ===
-"list_empty":    [],
-"list_one":      ["s"],
-"nested_list":   [[]],
+"list_empty"    [],
+"list_one"      ["s"],
+"nested_list"   [[]],
 ---
 (document
     (record_entry
