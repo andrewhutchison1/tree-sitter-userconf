@@ -1,4 +1,25 @@
 ===
+Linebreaks can separate the key and value in a record entry
+===
+
+key
+    value
+
+key ; comment
+    value
+
+---
+
+(document
+    (record_entry
+        (key (str_unquoted))
+        (value (str_unquoted)))
+    (record_entry
+        (key (str_unquoted))
+        (comment)
+        (value (str_unquoted))))
+
+===
 Linebreaks can act as separators in records and lists
 ===
 

@@ -6,7 +6,7 @@ key >>Multiline
 
 ---
 
-(document (record_entry (key (str_unquoted)) (value (str_multi))))
+(document (record_entry (key (str_unquoted)) (value (str_multiline))))
 
 ===
 Single-line multiline string following a newline is parsed properly
@@ -17,7 +17,7 @@ key
 
 ---
 
-(document (record_entry (key (str_unquoted)) (value (str_multi))))
+(document (record_entry (key (str_unquoted)) (value (str_multiline))))
 
 ===
 Multi-line multiline string following a newline is parsed properly
@@ -26,6 +26,60 @@ Multi-line multiline string following a newline is parsed properly
 key
     >>Multiline
     >>string
+
 ---
 
-(document (record_entry (key (str_unquoted)) (value (str_multi))))
+(document (record_entry (key (str_unquoted)) (value (str_multiline))))
+
+===
+Empty multiline string is parsed properly
+===
+
+key >>
+
+---
+(document (record_entry (key (str_unquoted)) (value (str_multiline))))
+
+===
+Multi-line empty multiline string is parsed properly
+===
+
+key >>
+    >>;
+
+---
+(document (record_entry (key (str_unquoted)) (value (str_multiline))))
+
+===
+Multi-line strings parsed properly inside list (newline separated)
+===
+
+list [
+    >>hello
+
+    >>goodbye
+]
+
+---
+
+(document
+    (record_entry
+        (key (str_unquoted))
+        (value (list (str_multiline) (str_multiline)))))
+
+===
+Multiple multiline string keys are parsed correctly
+===
+key1    >>multiline
+        >> string
+
+key2    >>multiline
+        >> string
+---
+(document
+    (record_entry
+        (key (str_unquoted))
+        (value (str_multiline)))
+    (record_entry
+        (key (str_unquoted))
+        (value (str_multiline))))

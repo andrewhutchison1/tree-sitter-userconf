@@ -1,4 +1,25 @@
 ===
+Empty document parses correctly
+===
+
+---
+
+(document)
+
+===
+Simple string key-value entries at document top-level parse correctly
+===
+
+"key" "value"
+
+---
+
+(document
+    (record_entry
+        (key (str_quoted))
+        (value (str_quoted))))
+
+===
 Document with quoted string keys and list values at top-level
 ===
 
