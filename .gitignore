@@ -4,3 +4,4 @@ bindings/
 src/
 Cargo.toml
 binding.gyp
+log.html
