@@ -1,89 +1,72 @@
 ===
-Empty document with single line comment parses correctly
+cmt.one | Empty document with single line comment parses correctly
 ===
-
 ; Empty document with a comment
-
 ---
-
 (document (comment))
 
 ===
-Consecutive line comments correctly parse as multiple comments
+cmt.many | Consecutive line comments correctly parse as multiple comments
 ===
-
 ; Empty document with a comment
 ; that spans two lines
-
 ---
-
 (document (comment) (comment))
 
 ===
-Comments can act as separators in records and lists
+cmt.can_sep | Comments can act as separators in records and lists
 ===
-
-"key" "value" ;C1
+"key": "value" ;C1
 ;C2
-"key" "value"
-
+"key": "value"
 ---
-
 (document
     (record_entry
-        (key (str_quoted)) (value (str_quoted)))
+        key:    (quoted_string)
+        value:  (quoted_string))
     (comment)
     (comment)
     (record_entry
-        (key (str_quoted)) (value (str_quoted))))
+        key:    (quoted_string)
+        value:  (quoted_string)))
 
 ===
-Comments are not scanned inside quoted strings
+cmt.in_qstr | Comments are not scanned inside quoted strings
 ===
-
-";not a comment"    ";"     ; a comment
-
+";not a comment": ";"     ; a comment
 ---
-
 (document
     (record_entry
-        (key (str_quoted))
-        (value (str_quoted)))
+        key:    (quoted_string)
+        value:  (quoted_string))
     (comment))
 
 ===
-Comments are parsed correctly inside records
+cmt.in_rec | Comments are parsed correctly inside records
 ===
-
-"key" {
+"key": {
     ; Not the value
-    "key" "value"
+    "key": "value"
 }
-
 ---
-
 (document
     (record_entry
-        (key (str_quoted))
-        (value (record
-            (comment)
-            (record_entry
-                (key (str_quoted))
-                (value (str_quoted)))))))
+        key:    (quoted_string)
+        value:  (record
+                    (comment)
+                    (record_entry
+                        key:    (quoted_string)
+                        value:  (quoted_string)))))
 
 ===
-Comments are parsed correctly inside lists
+cmt.in_list | Comments are parsed correctly inside lists
 ===
-
-"key"   [
+"key": [
     ; Not the first element
     "first_element"
 ]
-
 ---
-
 (document
     (record_entry
-        (key (str_quoted))
-        (value
-            (list (comment) (str_quoted)))))
+        key:    (quoted_string)
+        value:  (list (comment) (quoted_string))))

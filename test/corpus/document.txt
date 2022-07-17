@@ -1,41 +1,33 @@
 ===
-Empty document parses correctly
+doc.empty | Empty document parses correctly
 ===
-
 ---
-
 (document)
 
 ===
-Simple string key-value entries at document top-level parse correctly
+doc.top1 | Document with top-level quoted string values parses correctly
 ===
-
-"key" "value"
-
+"key": "value"
 ---
-
 (document
     (record_entry
-        (key (str_quoted))
-        (value (str_quoted))))
+        key:    (quoted_string)
+        value:  (quoted_string)))
 
 ===
-Document with quoted string keys and list values at top-level
+doc.top2 | Document with top-level list values parses correctly
 ===
-
-"list_empty"    [],
-"list_one"      ["s"],
-"nested_list"   [[]],
-
+"list_empty":    [],
+"list_one":      ["s"],
+"nested_list":   [[]],
 ---
-
 (document
     (record_entry
-        (key (str_quoted))
-        (value (list)))
+        key:    (quoted_string)
+        value:  (list))
     (record_entry
-        (key (str_quoted))
-        (value (list (str_quoted))))
+        key:    (quoted_string)
+        value:  (list (quoted_string)))
     (record_entry
-        (key (str_quoted))
-        (value (list (list)))))
+        key:    (quoted_string)
+        value:  (list (list))))

@@ -1,63 +1,57 @@
 ===
-Linebreaks can separate the key and value in a record entry
+lb.can_sep_kv | Linebreaks can separate the key and value in a record
 ===
-
-key
+key:
     value
 
-key ; comment
+key: ; comment
     value
-
 ---
-
 (document
     (record_entry
-        (key (str_unquoted))
-        (value (str_unquoted)))
+        key:    (unquoted_string)
+        value:  (unquoted_string))
     (record_entry
-        (key (str_unquoted))
+        key:    (unquoted_string)
         (comment)
-        (value (str_unquoted))))
+        value:  (unquoted_string)))
 
 ===
-Linebreaks can act as separators in records and lists
+lb.can_sep | Linebreaks can act as separators in records and lists
 ===
+"key":       "value"
+"key":       "value"
 
-"key"       "value"
-"key"       "value"
+"key":       "value"
 
-"key"       "value"
-
-"record"    {
-    "key" "value"
-    "key" "value"
+"record":    {
+    "key": "value"
+    "key": "value"
 }
 
-"list" [
+"list": [
     "1"
     "2"
 
 
     "3"]
-
 ---
-
 (document
     (record_entry
-        (key (str_quoted))
-        (value (str_quoted)))
+        key: (quoted_string)
+        value: (quoted_string))
     (record_entry
-        (key (str_quoted))
-        (value (str_quoted)))
+        key: (quoted_string)
+        value: (quoted_string))
     (record_entry
-        (key (str_quoted))
-        (value (str_quoted)))
+        key: (quoted_string)
+        value: (quoted_string))
     (record_entry
-        (key (str_quoted))
-        (value
+        key: (quoted_string)
+        value:
             (record
-                (record_entry (key (str_quoted)) (value (str_quoted)))
-                (record_entry (key (str_quoted)) (value (str_quoted))))))
+                (record_entry key: (quoted_string) value: (quoted_string))
+                (record_entry key: (quoted_string) value: (quoted_string))))
     (record_entry
-        (key (str_quoted))
-        (value (list (str_quoted) (str_quoted) (str_quoted)))))
+        key:    (quoted_string)
+        value:  (list (quoted_string) (quoted_string) (quoted_string))))

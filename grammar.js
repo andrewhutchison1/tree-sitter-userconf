@@ -2,31 +2,55 @@ module.exports = grammar({
     name: 'Userconf',
 
     extras: $ => [
-        $.comment,
         /\s/,
+        $.comment,
     ],
 
     rules: {
         document: $ => optional($._record_body),
 
-        record:             $ => seq('{', optional($._record_body), '}'),
-        _record_body:       $ => separated1($.record_entry, $._separator),
-        record_entry:       $ => seq($.key, $.value),
-        key:                $ => $._str_key,
-        value:              $ => choice($._str_any, $.record, $.list),
-        
-        list:               $ => seq('[', optional(separated1($._list_element, $._separator)), ']'),
-        _list_element:      $ => choice($._str_any, $.record, $.list),
+        _separator:
+            $ => choice(',', $.comment, /\r?\n/),
 
-        comment:            $ => token(seq(';', /.*/)),
-        _linebreak:         $ => /\r?\n|\r|\n|\u2028|\u2029/,
-        _separator:         $ => choice(',', $.comment, $._linebreak),
+        record: $ =>
+            seq('{', optional($._record_body), '}'),
 
-        str_unquoted:       $ => /[^\s\[\]\{\}";,>]+/,
-        str_quoted:         $ => /"[^"]*"/,
+        _record_body: $ =>
+            separated1($.record_entry, $._separator),
 
-        _str_key:           $ => choice($.str_unquoted, $.str_quoted),
-        _str_any:           $ => choice($.str_unquoted, $.str_quoted),
+        record_entry: $ =>
+            seq(
+                field('key', choice($.quoted_string, $.unquoted_string)),
+                ':',
+                field('value', choice($.unquoted_string, $.quoted_string, $.record, $.list))
+            ),
+
+        list: $ =>
+            seq('[', optional($._list_body), ']'),
+
+        _list_body: $ =>
+            separated1(
+                choice($.unquoted_string, $.quoted_string, $.record, $.list),
+                $._separator
+            ),
+
+        unquoted_string: $ =>
+            token(/[^\s\[\]\{\}":;,>]+/),
+
+        quoted_string: $ =>
+            token(seq(
+                '"',
+                repeat(
+                    choice(
+                        /[^"\\]/,
+                        /\\("|\\|0|[a-z]|(x[0-9a-fA-F]{2})|(u[0-9a-fA-F]{6}))/
+                    )
+                ),
+                '"'
+            )),
+
+        comment:
+            $ => token(seq(';', /.*/)),
     }
 });
 
