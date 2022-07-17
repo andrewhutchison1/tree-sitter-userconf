@@ -53,6 +53,46 @@ list: [
         value: (list (multiline_string) (multiline_string))))
 
 ===
+ml.in_list.cmt | Multiline strings in list can be comment-separated
+===
+list: [
+    >>first list element
+    ;separating comment
+    >>last list element
+]
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (list (multiline_string) (comment) (multiline_string))))
+
+===
+ml.in_list.comma | Multiline strings in list can be comma-separated
+===
+list: [
+    >>first
+    >>list
+    >>element
+    ,
+    >>second
+    >>list
+    >>element
+]
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (list (multiline_string) (multiline_string))))
+
+===
+ml.ml_sigil | `>>' is not scanned inside a multiline string
+===
+key: >>hello>>there
+     >>
+---
+(document (record_entry key: (unquoted_string) value: (multiline_string)))
+
+===
 ml.many | Multiple multiline string keys are parsed correctly
 ===
 key1:   >>multiline
