@@ -4,8 +4,10 @@
   "description": "Tree-sitter parser for Userconf",
   "main": "bindings/node",
   "scripts": {
-    "build": "tree-sitter generate && node-gyp build",
-    "test": "tree-sitter test"
+    "build": "tree-sitter generate",
+    "build-gyp": "node-gyp build",
+    "test": "tree-sitter test",
+    "test-examples": "tree-sitter parse examples/**/*.uconf --quiet --stat"
   },
   "author": "Andrew Hutchison",
   "license": "ISC",
