@@ -1,0 +1,158 @@
+[
+  {
+    "type": "document",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "record_entry",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "multiline_string",
+          "named": true
+        },
+        {
+          "type": "quoted_string",
+          "named": true
+        },
+        {
+          "type": "record",
+          "named": true
+        },
+        {
+          "type": "unquoted_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "multiline_string",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "record",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "record_entry",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "record_entry",
+    "named": true,
+    "fields": {
+      "key": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "quoted_string",
+            "named": true
+          },
+          {
+            "type": "unquoted_string",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "list",
+            "named": true
+          },
+          {
+            "type": "multiline_string",
+            "named": true
+          },
+          {
+            "type": "quoted_string",
+            "named": true
+          },
+          {
+            "type": "record",
+            "named": true
+          },
+          {
+            "type": "unquoted_string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": ",",
+    "named": false
+  },
+  {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "]",
+    "named": false
+  },
+  {
+    "type": "comment",
+    "named": true
+  },
+  {
+    "type": "quoted_string",
+    "named": true
+  },
+  {
+    "type": "unquoted_string",
+    "named": true
+  },
+  {
+    "type": "{",
+    "named": false
+  },
+  {
+    "type": "}",
+    "named": false
+  }
+]

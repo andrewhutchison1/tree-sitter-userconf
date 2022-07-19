@@ -4,8 +4,8 @@
   "description": "Tree-sitter parser for Userconf",
   "main": "bindings/node",
   "scripts": {
-    "tree-sitter": "tree-sitter",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tree-sitter generate && node-gyp build",
+    "test": "tree-sitter test"
   },
   "author": "Andrew Hutchison",
   "license": "ISC",
