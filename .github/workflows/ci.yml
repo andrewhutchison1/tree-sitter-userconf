@@ -16,6 +16,6 @@ jobs:
         with:
           node-version: 16
       - run: npm install
-      - run: npm build
+      - run: npm run build
       - run: npm test
-      - run: npm test-examples
+      - run: npm run test-examples
