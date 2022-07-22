@@ -1,7 +1,10 @@
 ; A typical userconf configuration file, containing top-level key value pairs as well as
 ; (nested) lists and records.
 
-"path"      "~/some/useful/path"
+path {
+    *nix    "~/some/useful/path"
+    win32   "C:\\some\\useful\\path"
+}
 
 meta {
     "ttl"       "5000"
@@ -11,15 +14,29 @@ meta {
 
 "records"   [
     {
-        "name"          "record1"
-        "description"   "The first record"
+        name          "record1"
+        description   "The first record"
     }
 
     ; This record is always present
-    {"name" "null", "description" "The null record"}
+    {name "null", description "The null record"}
 ]
 
-message    >>This is a multiline\n
-            >>string.
-            >>\n
-            >>Hello
+message (
+    >>These EOL strings
+    >> are joined into a single string
+    >> since they're children of a
+    >> join expression.
+
+    ; You can have comments inside a join-expression.
+    ; They are ignored.
+    (
+        "this \"nested\" join expression"
+        " is also joined into a single string,"
+        " then merged\\flattened into the"
+        " parent join expression."
+    )
+
+    ; You can also comma-separate items.
+    these, " strings ", are, " joined ", too
+)

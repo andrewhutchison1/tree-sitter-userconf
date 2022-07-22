@@ -5,7 +5,13 @@
 (record_entry key: [(unquoted_string) (quoted_string)] @keyword)
 
 ; Strings elsewhere
-[(unquoted_string) (quoted_string)] @string
+[(eol_string) (unquoted_string) (quoted_string)] @string
+
+; Escape sequences
+(escape_sequence) @constant.builtin
+
+; Join expression sigils
+["(" ")"] @string.special
 
 ; Punctuation and delimiters
 ["{" "}" "[" "]"] @punctuation.bracket
