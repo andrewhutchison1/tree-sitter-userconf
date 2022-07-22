@@ -13,7 +13,7 @@ module.exports = grammar({
             $ => choice(',', $.comment, /\r?\n/),
 
         _value: $ =>
-            choice($.unquoted_string, $.quoted_string, $.multiline_string, $.record, $.list),
+            choice($.unquoted_string, $.quoted_string, $.record, $.list),
 
         record: $ =>
             seq('{', optional($._record_body), '}'),
@@ -47,21 +47,6 @@ module.exports = grammar({
                 ),
                 '"'
             )),
-
-        _multiline_line: $ =>
-            token(seq(
-                '>>',
-                repeat(
-                    choice(
-                        /[^\r\n\\]/,
-                        /\\("|\\|0|[a-z]|(x[0-9a-fA-F]{2})|(u[0-9a-fA-F]{6}))/
-                    )
-                ),
-                optional(/\r?\n/)
-            )),
-
-        multiline_string: $ =>
-            repeat1($._multiline_line),
 
         comment:
             $ => token(seq(';', /.*/)),

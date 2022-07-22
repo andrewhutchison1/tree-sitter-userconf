@@ -35,10 +35,6 @@
           "named": true
         },
         {
-          "type": "multiline_string",
-          "named": true
-        },
-        {
           "type": "quoted_string",
           "named": true
         },
@@ -52,11 +48,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "multiline_string",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "record",
@@ -101,10 +92,6 @@
         "types": [
           {
             "type": "list",
-            "named": true
-          },
-          {
-            "type": "multiline_string",
             "named": true
           },
           {

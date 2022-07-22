@@ -5,7 +5,7 @@
 (record_entry key: [(unquoted_string) (quoted_string)] @keyword)
 
 ; Strings elsewhere
-[(unquoted_string) (quoted_string) (multiline_string)] @string
+[(unquoted_string) (quoted_string)] @string
 
 ; Punctuation and delimiters
 ["{" "}" "[" "]"] @punctuation.bracket
