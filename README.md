@@ -4,7 +4,10 @@
 This repository contains a Tree-sitter parser for the userconf configuration file format.
 It also serves as the *source of truth* for userconf's syntax.
 
-## userconf
+- [Syntax](#syntax)
+- [Building and testing](#building-and-testing)
+
+## Syntax
 
 Userconf is a fairly spartan plaintext file format for expressing configuration settings.
 
@@ -12,6 +15,11 @@ Userconf is a fairly spartan plaintext file format for expressing configuration 
     - [Comments](#comments)
     - [Strings](#strings)
         - [Unquoted strings](#unquoted-strings)
+        - [Quoted strings](#quoted-strings)
+        - [EOL strings](#eol-strings)
+        - [Join expressions](#join-expressions)
+    - [Records](#records)
+    - [Lists](#lists)
 
 ### Document
 
@@ -170,9 +178,11 @@ TODO
 A *list* contains zero or more strings (of any type), lists or records.
 TODO
 
-## Building and running tests
+## Building and testing
 
 After cloning the repository, generate the parser with `npm run build`.
+
 To run tests, use `npm test` (to execute the Tree-sitter syntax tree tests) and
 `npm run test-examples` to ensure all examples parse successfully.
-To compile for Nodejs, use `node-gyp configure && node-gyp build`.
+
+To compile for Nodejs inclusion, use `node-gyp configure && node-gyp build`.
