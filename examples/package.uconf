@@ -1,0 +1,29 @@
+; Re-imagining of this project's package.json file in userconf syntax
+
+name        "tree-sitter-userconf"
+version     0.1.0
+description "Tree-sitter parser for Userconf"
+author      "Andrew Hutchison"
+license     ISC
+
+main        "bindings/node"
+
+dependencies {
+    nan     ^2.16.0
+}
+
+devDependencies {
+    tree-sitter-cli ^0.20.6
+}
+
+scripts {
+    build           "tree-sitter generate"
+    build-gyp       "node-gyp build"
+    test            "tree-sitter test"
+    test-examples   "tree-sitter parse examples/**/*.uconf --quiet --stat"
+    tree-sitter     "tree-sitter"
+}
+
+tree-sitter [
+    {scope "source.uconf", file-types [uconf]}
+]
