@@ -31,17 +31,6 @@ cmt.can_sep | Comments can act as separators in records and lists
         value:  (quoted_string)))
 
 ===
-cmt.in_qstr | Comments are not scanned inside quoted strings
-===
-";not a comment" ";"     ; a comment
----
-(document
-    (record_entry
-        key:    (quoted_string)
-        value:  (quoted_string))
-    (comment))
-
-===
 cmt.in_rec | Comments are parsed correctly inside records
 ===
 "key" {

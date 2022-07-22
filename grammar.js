@@ -1,19 +1,18 @@
 module.exports = grammar({
     name: 'userconf',
 
-    extras: $ => [
-        /\s/,
-        $.comment,
-    ],
+    extras: $ => [/\s/, $.comment],
 
     rules: {
-        document: $ => optional($._record_body),
+        document: $ =>
+            optional($._record_body),
 
-        _separator:
-            $ => choice(',', $.comment, /\r?\n/),
+        _separator: $ =>
+            choice(',', $.comment, /\r?\n/),
 
-        _value: $ =>
-            choice($.unquoted_string, $.quoted_string, $.record, $.list),
+        //
+        // Records
+        //
 
         record: $ =>
             seq('{', optional($._record_body), '}'),
@@ -23,9 +22,16 @@ module.exports = grammar({
 
         record_entry: $ =>
             seq(
-                field('key', choice($.quoted_string, $.unquoted_string)),
+                field('key', $._record_key),
                 field('value', $._value)
             ),
+
+        _record_key: $ =>
+            choice($.quoted_string, $.unquoted_string),
+
+        //
+        // Lists
+        //
 
         list: $ =>
             seq('[', optional($._list_body), ']'),
@@ -33,23 +39,71 @@ module.exports = grammar({
         _list_body: $ =>
             separated1($._value, $._separator),
 
+        //
+        // Join expressions
+        //
+
+        join_expression: $ =>
+            seq('(', optional($._join_expression_body), ')'),
+
+        _join_expression_body: $ =>
+            separated1($._any_string, $._separator),
+
+        //
+        // Values and strings
+        //
+
+        _value: $ =>
+            choice(
+                $.record,
+                $.list,
+                $._any_string
+            ),
+
+        _any_string: $ =>
+            choice(
+                $.unquoted_string,
+                $.eol_string,
+                $.quoted_string,
+                $.join_expression
+            ),
+
         unquoted_string: $ =>
-            token(/[^\s\[\]\{\}";,>]+/),
+            token(/[^\s\(\)\[\]\{\}";,>]+/),
 
         quoted_string: $ =>
-            token(seq(
+            seq(
                 '"',
-                repeat(
-                    choice(
-                        /[^"\\]/,
-                        /\\("|\\|0|[a-z]|(x[0-9a-fA-F]{2})|(u[0-9a-fA-F]{6}))/
-                    )
-                ),
+                repeat(choice($._quoted_string_char, $.escape_sequence)),
                 '"'
-            )),
+            ),
 
-        comment:
-            $ => token(seq(';', /.*/)),
+        _quoted_string_char: $ =>
+            token.immediate(prec(1, /[^"\n\\]+/)),
+
+        eol_string: $ =>
+            seq(
+                '>>',
+                repeat(choice($._eol_string_char, $.escape_sequence)),
+            ),
+
+        _eol_string_char: $ =>
+            token.immediate(prec(1, /[^\n\\]+/)),
+
+        escape_sequence: $ =>
+            token.immediate(
+                seq(
+                    '\\',
+                    choice(
+                        /n|r|t|0|"|\\/,
+                        /x[a-fA-F0-9]{2}/,
+                        /u\{[a-fA-F0-9]{1,6}\}/
+                    )
+                )
+            ),
+
+        comment: $ =>
+            token(seq(';', /.*/)),
     }
 });
 

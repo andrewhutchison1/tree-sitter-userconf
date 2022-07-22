@@ -1,0 +1,111 @@
+===
+str.u.top | Unquoted string key and value parse at top-level
+===
+key value
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (unquoted_string)))
+
+===
+str.u.cmt | Comments terminate unquoted strings
+===
+key;comment
+    value
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        (comment)
+        value:  (unquoted_string)))
+
+===
+str.q.top | Quoted string key and value parse at top-level
+===
+"key" "value"
+---
+(document
+    (record_entry
+        key:    (quoted_string)
+        value:  (quoted_string)))
+
+===
+str.q.esc | Escape sequences detected in quoted string
+===
+"strings" [
+    "\n\r\t\0\"\\"
+    "\x00\xaa\xAA"
+    "\u{0}\u{a}\u{A}\u{ABCDEF}\u{00000}"
+]
+---
+(document
+    (record_entry
+        key:    (quoted_string)
+        value:  (list
+            (quoted_string
+                (escape_sequence) (escape_sequence) (escape_sequence)
+                (escape_sequence) (escape_sequence) (escape_sequence))
+            (quoted_string
+                (escape_sequence) (escape_sequence) (escape_sequence))
+            (quoted_string
+                (escape_sequence) (escape_sequence) (escape_sequence)
+                (escape_sequence) (escape_sequence)))))
+
+===
+str.q.cmt | Comments are not scanned inside a quoted string
+===
+"key;" ";value;" ; comment
+---
+(document
+    (record_entry
+        key:    (quoted_string)
+        value:  (quoted_string))
+    (comment))
+
+===
+str.e.top | EOL string value parses at top-level
+===
+k1 >>value
+k2
+    >>value
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (eol_string))
+    (record_entry
+        key:    (unquoted_string)
+        value:  (eol_string)))
+
+===
+str.e.esc | Escape sequences detected in EOL string
+===
+string [
+    >>\n\r\t\0\"\\
+    >>\x00\xaa\xAA
+    >>\u{0}\u{a}\u{ABCDEF}\u{000000}
+]
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (list
+            (eol_string
+                (escape_sequence) (escape_sequence) (escape_sequence)
+                (escape_sequence) (escape_sequence) (escape_sequence))
+            (eol_string
+                (escape_sequence) (escape_sequence) (escape_sequence))
+            (eol_string
+                (escape_sequence) (escape_sequence) (escape_sequence)
+                (escape_sequence)))))
+
+===
+str.e.cmt | Comments are not scanned inside an EOL string
+===
+key >>;value ;not comment
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (eol_string)))

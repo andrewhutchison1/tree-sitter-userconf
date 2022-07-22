@@ -1,0 +1,120 @@
+===
+join.empty | Empty join expression
+===
+key ()
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (join_expression)))
+
+===
+join.cmt | Comments are parsed inside join expressions
+===
+key (
+    ; A comment
+)
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (join_expression (comment))))
+
+===
+join.u | Join expression of unquoted strings at top-level
+===
+key (
+    hello, there,
+    hello
+    there
+)
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (join_expression
+            (unquoted_string) (unquoted_string) (unquoted_string)
+            (unquoted_string))))
+
+===
+join.q | Join expression of quoted strings at top-level
+===
+key (
+    "hello", "there",
+    "hello"
+    "there"
+)
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (join_expression
+            (quoted_string) (quoted_string) (quoted_string) (quoted_string))))
+
+===
+join.e | Join expression of EOL strings at top-level
+===
+key (
+    >>hello
+    >>there
+
+    >>hello
+
+    >>there
+)
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (join_expression
+            (eol_string) (eol_string) (eol_string) (eol_string))))
+
+===
+join.nested | Nested join expression at top-level
+===
+key (
+    (a, b)
+    ()
+    (())
+)
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (join_expression
+            (join_expression (unquoted_string) (unquoted_string))
+            (join_expression)
+            (join_expression (join_expression)))))
+
+===
+join.mixed | Nested join expression of mixed string types and comments
+===
+key (
+    ; comment
+    "quoted"
+    unquoted
+    >>eol
+    >>another eol
+    (
+        ; nested
+        "quoted"
+        ()
+    )
+
+    ; comment
+)
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (join_expression
+            (comment)
+            (quoted_string)
+            (unquoted_string)
+            (eol_string)
+            (eol_string)
+            (join_expression
+                (comment)
+                (quoted_string)
+                (join_expression))
+            (comment))))

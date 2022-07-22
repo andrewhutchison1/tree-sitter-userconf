@@ -19,6 +19,52 @@
     }
   },
   {
+    "type": "eol_string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_sequence",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "join_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "eol_string",
+          "named": true
+        },
+        {
+          "type": "join_expression",
+          "named": true
+        },
+        {
+          "type": "quoted_string",
+          "named": true
+        },
+        {
+          "type": "unquoted_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "list",
     "named": true,
     "fields": {},
@@ -28,6 +74,14 @@
       "types": [
         {
           "type": "comment",
+          "named": true
+        },
+        {
+          "type": "eol_string",
+          "named": true
+        },
+        {
+          "type": "join_expression",
           "named": true
         },
         {
@@ -44,6 +98,21 @@
         },
         {
           "type": "unquoted_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "quoted_string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_sequence",
           "named": true
         }
       ]
@@ -91,6 +160,14 @@
         "required": true,
         "types": [
           {
+            "type": "eol_string",
+            "named": true
+          },
+          {
+            "type": "join_expression",
+            "named": true
+          },
+          {
             "type": "list",
             "named": true
           },
@@ -111,7 +188,23 @@
     }
   },
   {
+    "type": "\"",
+    "named": false
+  },
+  {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
+    "named": false
+  },
+  {
     "type": ",",
+    "named": false
+  },
+  {
+    "type": ">>",
     "named": false
   },
   {
@@ -127,7 +220,7 @@
     "named": true
   },
   {
-    "type": "quoted_string",
+    "type": "escape_sequence",
     "named": true
   },
   {
