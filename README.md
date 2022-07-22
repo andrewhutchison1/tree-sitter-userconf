@@ -10,6 +10,8 @@ Userconf is a fairly spartan plaintext file format for expressing configuration 
 
 - [Document](#document)
     - [Comments](#comments)
+    - [Strings](#strings)
+        - [Unquoted strings](#unquoted-strings)
 
 ### Document
 
