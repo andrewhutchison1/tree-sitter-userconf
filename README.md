@@ -8,10 +8,12 @@ It also serves as the *source of truth* for userconf's syntax.
 
 Userconf is a fairly spartan plaintext file format for expressing configuration settings.
 
+- [Document](#document)
+    - [Comments](#comments)
+
 ### Document
 
 A userconf file is called a *document*.
-as well as top-level key-value pairs.
 Userconf documents must be encoded as UTF-8.
 
 #### Comments
@@ -20,10 +22,6 @@ Comments start with `;` and extend until the end of the line.
 ```
 ; this is a comment
 ```
-
-### Data types
-
-Userconf has a single atomic datatype, the string, as well as *records* and *lists*.
 
 #### Strings
 
@@ -118,7 +116,7 @@ Join expressions are delimited by parentheses, can be empty, and can be nested.
 ; Equivalent to "hello world!" (nested join expressions are flattened)
 (
     hello
-    (" world" !)
+    (" world", !)
 )
 
 ; Equivalent to "" (the empty string)
@@ -141,6 +139,22 @@ Note that linebreaks are not automatically inserted.
     >>This is a large string\n
     >>that must be split over several\n
     >>lines.
+)
+```
+
+All string types can appear inside a join expression, separated by the comma `,` or a linebreak.
+Comments can appear inside join expressions, and they are stripped/ignored.
+```
+; Equivalent to "Join expression containing multiple string types."
+(
+    Join, " ", expression
+    "containing"
+    >> multiple string types.
+)
+
+; Equivalent to the empty string ""
+(
+    ; comment
 )
 ```
 
