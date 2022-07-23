@@ -1,0 +1,124 @@
+===
+list.empty | Empty list parses
+===
+_ []
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (list)))
+
+===
+list.cmt | Comments are parsed inside lists
+===
+_ [
+    ;comment
+]
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (list (comment))))
+
+===
+list.one | List with one element parses
+===
+str.u [ test ]
+str.q [ "test" ]
+
+str.e [
+    >>test
+]
+
+list [ [] ]
+rec [ {} ]
+join [ () ]
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (list (unquoted_string)))
+    (record_entry
+        key:    (unquoted_string)
+        value:  (list (quoted_string)))
+    (record_entry
+        key:    (unquoted_string)
+        value:  (list (eol_string)))
+    (record_entry
+        key:    (unquoted_string)
+        value:  (list (list)))
+    (record_entry
+        key:    (unquoted_string)
+        value:  (list (record)))
+    (record_entry
+        key:    (unquoted_string)
+        value:  (list (join_expression))))
+
+===
+list.sep.com | Commas can separate items in a list
+===
+list [str.u, "str.q", >>str.e
+    [], {}, ()
+    ]
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (list
+            (unquoted_string) (quoted_string) (eol_string) (list) (record)
+            (join_expression))))
+
+===
+list.sep.cmt | Comments can separate items in a list
+===
+list [str.u ;c1
+    "str.q" ;c2
+    >>str.e
+    ;c3
+    [] ;c5
+    {} ; c6
+    () ;c4
+]
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (list
+            (unquoted_string) (comment)
+            (quoted_string) (comment)
+            (eol_string) (comment)
+            (list) (comment)
+            (record) (comment)
+            (join_expression) (comment))))
+
+===
+list.sep.lb | Linebreaks can separate items in a list
+===
+list [str.u
+    "str.q"
+
+    >>str.e
+
+
+    []
+
+
+
+    {}
+
+
+
+
+    ()
+]
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (list
+            (unquoted_string)
+            (quoted_string)
+            (eol_string)
+            (list)
+            (record)
+            (join_expression))))
