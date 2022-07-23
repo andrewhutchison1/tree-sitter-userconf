@@ -1,0 +1,158 @@
+===
+rec.empty | Empty record parses
+===
+_ {}
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (record)))
+
+===
+rec.cmt | Comments are parsed inside records
+===
+_ {
+    ; comment
+}
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (record (comment))))
+
+===
+rec.one | Record with one entry parses
+===
+str.u-str.u {key value}
+str.u-str.q {key "value"}
+str.u-str.e {key
+    >>value
+}
+str.u-rec {key {}}
+str.u-list {key []}
+str.u-join {key ()}
+
+str.q-str.u {"key" value}
+str.q-str.q {"key" "value"}
+str.q-str.e {"key"
+    >>value
+}
+str.q-rec {"key" {}}
+str.q-list {"key" []}
+str.q-join {"key" ()}
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (record (record_entry
+            key:    (unquoted_string)
+            value:  (unquoted_string))))
+    (record_entry
+        key:    (unquoted_string)
+        value:  (record (record_entry
+            key:    (unquoted_string)
+            value:  (quoted_string))))
+    (record_entry
+        key:    (unquoted_string)
+        value:  (record (record_entry
+            key:    (unquoted_string)
+            value:  (eol_string))))
+    (record_entry
+        key:    (unquoted_string)
+        value:  (record (record_entry
+            key:    (unquoted_string)
+            value:  (record))))
+    (record_entry
+        key:    (unquoted_string)
+        value:  (record (record_entry
+            key:    (unquoted_string)
+            value:  (list))))
+    (record_entry
+        key:    (unquoted_string)
+        value:  (record (record_entry
+            key:    (unquoted_string)
+            value:  (join_expression))))
+    (record_entry
+        key:    (unquoted_string)
+        value:  (record (record_entry
+            key:    (quoted_string)
+            value:  (unquoted_string))))
+    (record_entry
+        key:    (unquoted_string)
+        value:  (record (record_entry
+            key:    (quoted_string)
+            value:  (quoted_string))))
+    (record_entry
+        key:    (unquoted_string)
+        value:  (record (record_entry
+            key:    (quoted_string)
+            value:  (eol_string))))
+    (record_entry
+        key:    (unquoted_string)
+        value:  (record (record_entry
+            key:    (quoted_string)
+            value:  (record))))
+    (record_entry
+        key:    (unquoted_string)
+        value:  (record (record_entry
+            key:    (quoted_string)
+            value:  (list))))
+    (record_entry
+        key:    (unquoted_string)
+        value:  (record (record_entry
+            key:    (quoted_string)
+            value:  (join_expression)))))
+
+===
+rec.sep.com | Commas can separate items in a list
+===
+str.u {k str.u, k "str.q", k >>str.e
+    k {}, k [], k ()
+},
+str.q {"k" str.u, "k" "str.q", "k" >>str.e
+    "k" {}, "k" [], "k" ()
+}
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (record
+            (record_entry
+                key:    (unquoted_string)
+                value:  (unquoted_string))
+            (record_entry
+                key:    (unquoted_string)
+                value:  (quoted_string))
+            (record_entry
+                key:    (unquoted_string)
+                value:  (eol_string))
+            (record_entry
+                key:    (unquoted_string)
+                value:  (record))
+            (record_entry
+                key:    (unquoted_string)
+                value:  (list))
+            (record_entry
+                key:    (unquoted_string)
+                value:  (join_expression))))
+    (record_entry
+        key:    (unquoted_string)
+        value:  (record
+            (record_entry
+                key:    (quoted_string)
+                value:  (unquoted_string))
+            (record_entry
+                key:    (quoted_string)
+                value:  (quoted_string))
+            (record_entry
+                key:    (quoted_string)
+                value:  (eol_string))
+            (record_entry
+                key:    (quoted_string)
+                value:  (record))
+            (record_entry
+                key:    (quoted_string)
+                value:  (list))
+            (record_entry
+                key:    (quoted_string)
+                value:  (join_expression)))))
