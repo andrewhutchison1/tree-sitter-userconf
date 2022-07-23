@@ -14,48 +14,8 @@ cmt.many | Consecutive line comments correctly parse as multiple comments
 (document (comment) (comment))
 
 ===
-cmt.can_sep | Comments can act as separators in records and lists
+cmt.flat | Comments do not nest
 ===
-"key" "value" ;C1
-;C2
-"key" "value"
+; Comment ; same comment ; same comment ;;;
 ---
-(document
-    (record_entry
-        key:    (quoted_string)
-        value:  (quoted_string))
-    (comment)
-    (comment)
-    (record_entry
-        key:    (quoted_string)
-        value:  (quoted_string)))
-
-===
-cmt.in_rec | Comments are parsed correctly inside records
-===
-"key" {
-    ; Not the value
-    "key" "value"
-}
----
-(document
-    (record_entry
-        key:    (quoted_string)
-        value:  (record
-                    (comment)
-                    (record_entry
-                        key:    (quoted_string)
-                        value:  (quoted_string)))))
-
-===
-cmt.in_list | Comments are parsed correctly inside lists
-===
-"key" [
-    ; Not the first element
-    "first_element"
-]
----
-(document
-    (record_entry
-        key:    (quoted_string)
-        value:  (list (comment) (quoted_string))))
+(document (comment))

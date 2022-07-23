@@ -21,6 +21,16 @@ key;comment
         value:  (unquoted_string)))
 
 ===
+str.q.empty | Quoted string can be empty
+===
+key ""
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (quoted_string)))
+
+===
 str.q.top | Quoted string key and value parse at top-level
 ===
 "key" "value"
@@ -64,6 +74,16 @@ str.q.cmt | Comments are not scanned inside a quoted string
     (comment))
 
 ===
+str.e.empty | EOL string can be empty
+===
+key >>
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (eol_string)))
+
+===
 str.e.top | EOL string value parses at top-level
 ===
 k1 >>value
@@ -104,6 +124,16 @@ string [
 str.e.cmt | Comments are not scanned inside an EOL string
 ===
 key >>;value ;not comment
+---
+(document
+    (record_entry
+        key:    (unquoted_string)
+        value:  (eol_string)))
+
+===
+str.e.flat | EOL strings do not nest
+===
+key >>value >>not another EOL string >> >>
 ---
 (document
     (record_entry
