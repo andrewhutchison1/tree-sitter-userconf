@@ -17,11 +17,11 @@ devDependencies {
 }
 
 scripts {
-    build           "tree-sitter generate"
-    build-gyp       "node-gyp build"
-    test            "tree-sitter test"
-    test-examples   "tree-sitter parse examples/**/*.uconf --quiet --stat"
-    tree-sitter     "tree-sitter"
+    build           >>tree-sitter generate
+    build-gyp       >>node-gyp build
+    test            >>tree-sitter test
+    test-examples   >>tree-sitter parse examples/**/*.uconf --quiet --stat
+    tree-sitter     >>tree-sitter
 }
 
 tree-sitter [

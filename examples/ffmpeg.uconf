@@ -1,0 +1,20 @@
+; an example of how join expressions can make writing long strings (in this case a typical ffmpeg
+; invocation) ergonomic
+
+scripts {
+    "video.add_subs" {
+        description     "Add subtitles to video file"
+        reference       >>https://ostechnix.com/20-ffmpeg-commands-beginners/
+
+        args [
+            {name "video_file", match "*.mp4", required true}
+            {name "subs_file",  match "*.srt", default -}
+            {name "out_file",   match "*.mp4", required true}
+        ]
+
+        command (
+            >>fmpeg -i {{video_file}} -i {{subs_file}} -map 0 -map 1 -c copy -c:v libx264
+            >> -crf 23 -preset veryfast {{out_file}} 
+        )
+    }
+}
